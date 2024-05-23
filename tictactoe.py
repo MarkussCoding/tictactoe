@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import messagebox
 mansLogs = Tk()
 mansLogs.title("tic_tac_toe")
-
+#tictactoe
 speletajsX = True
 count = 0
 winner = False
