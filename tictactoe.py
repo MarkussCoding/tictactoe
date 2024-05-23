@@ -7,6 +7,39 @@ mansLogs.title("tic_tac_toe")
 speletajsX = True
 count = 0
 winner = False
+def reset():
+    global count
+    count = 0
+    btn1.config(state=NORMAL)
+    btn2.config(state=NORMAL)
+    btn3.config(state=NORMAL)
+    btn4.config(state=NORMAL)
+    btn5.config(state=NORMAL)
+    btn6.config(state=NORMAL)
+    btn7.config(state=NORMAL)
+    btn8.config(state=NORMAL)
+    btn9.config(state=NORMAL)
+    btn1["text"] = " "
+    btn2["text"] = " "
+    btn3["text"] = " "
+    btn4["text"] = " "
+    btn5["text"] = " "
+    btn6["text"] = " "
+    btn7["text"] = " "
+    btn8["text"] = " "
+    btn9["text"] = " "
+def disableButtons():
+    btn1.config(state=DISABLED)
+    btn2.config(state=DISABLED)
+    btn3.config(state=DISABLED)
+    btn4.config(state=DISABLED)
+    btn5.config(state=DISABLED)
+    btn6.config(state=DISABLED)
+    btn7.config(state=DISABLED)
+    btn8.config(state=DISABLED)
+    btn9.config(state=DISABLED)
+    
+
 def checkWinner():
     global winner
     if(btn1["text"] == "X" and btn2["text"] == "X" and btn3["text"] == "X" or
@@ -20,6 +53,7 @@ def checkWinner():
     ):
         winner = True
         messagebox.showinfo("tictactoe", "X ir uzvarētājs!")
+        disableButtons()
         return True
     elif(btn1["text"] == "O" and btn2["text"] == "O" and btn3["text"] == "O" or
     btn4["text"] == "O" and btn5["text"] == "O" and btn6["text"] == "O" or
@@ -31,13 +65,11 @@ def checkWinner():
     btn3["text"] == "O" and btn5["text"] == "O" and btn7["text"] == "O"):
         winner = True
         messagebox.showinfo("tictactoe", "O ir uzvarētājs!")
+        disableButtons()
         return True
     return False
 def btnClick(button):
     global speletajsX,count
-    if(winner):
-        messagebox.showinfo("TicTacToe", "Kāds jau ir uzvarējis!")
-        return
     if button["text"] == " " and speletajsX == True:
         button["text"] = "X"
         speletajsX = False
@@ -51,7 +83,6 @@ def btnClick(button):
     if not checkWinner() and count == 9:
         messagebox.showinfo("tictactoe", "neizšķirts!")
         disableButtons()
-    
 
 
 
@@ -64,6 +95,15 @@ btn6 = Button(mansLogs, text = " ", width=6, height=3, font=("Helvica",24),comma
 btn7 = Button(mansLogs, text = " ", width=6, height=3, font=("Helvica",24),command=lambda:btnClick(btn7))
 btn8 = Button(mansLogs, text = " ", width=6, height=3, font=("Helvica",24),command=lambda:btnClick(btn8))
 btn9 = Button(mansLogs, text = " ", width=6, height=3, font=("Helvica",24),command=lambda:btnClick(btn9))
+
+galvenaIzvelne = Menu(mansLogs)
+mansLogs.config(menu = galvenaIzvelne)
+
+opcijas = Menu(galvenaIzvelne, tearoff=False)
+galvenaIzvelne.add_cascade(label = "opcijas", menu = opcijas)
+opcijas.add_command(label = "jauna spele", command=reset)
+opcijas.add_command(label = "iziet", command=mansLogs.quit)
+
 
 btn1.grid(row=0,column=0)
 btn2.grid(row=0,column=1)
